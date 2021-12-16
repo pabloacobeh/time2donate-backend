@@ -3,10 +3,9 @@ const Comment = require("../models/Comment");
 
 const getAllCommentsFromProduct = async (req, res) => {
   const { id } = req.params;
-  const comments = await Comment.find({ product: id }).populate(
-    "product",
-    "title"
-  );
+  const comments = await Comment.find({ product: id })
+    .populate("product", "title")
+    .populate("user");
   try {
     return res.status(200).json(comments);
   } catch (error) {

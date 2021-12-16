@@ -14,7 +14,9 @@ const getAllProducts = async (req, res) => {
 
 const getProductById = async (req, res) => {
   const { id } = req.params;
-  const product = await Product.findById(id).populate("userOwner", "name");
+  const product = await Product.findById(id)
+    .populate("userOwner", "name")
+    .populate("category");
   try {
     return res.status(200).json(product);
   } catch (error) {

@@ -12,7 +12,8 @@
     "express-fileupload": "^1.2.1",
     "express-validator": "^6.13.0",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^6.1.0"
+    "mongoose": "^6.1.0",
+    "react-google-login": "^5.2.2"
   },
   "devDependencies": {},
   "scripts": {

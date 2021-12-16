@@ -22,14 +22,9 @@ const UserSchema = Schema({
     enum: ["USER", "ADMIN"],
     default: "USER",
   },
-  nickName: {
-    type: String,
-    required: true,
-    trim: true,
-    unique: true,
-  },
-  wishList: {
-    type: [],
+  google: {
+    type: Boolean,
+    default: false,
   },
 });
 
