@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { check, oneOf } = require("express-validator");
+const { check } = require("express-validator");
 
 const {
   loginUser,
@@ -25,6 +25,7 @@ router.post(
       "password",
       "Password must be 8 characters long with capital letter & Symbol"
     ).matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{8,}$/, "i"),
+    validateFields,
   ],
   signUpUser
 );

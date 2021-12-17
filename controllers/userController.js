@@ -27,7 +27,7 @@ const getUserById = async (req, res) => {
 
 const signUpUser = async (req, res) => {
   const { email } = req.body;
-  const testEmail = await User.findOne({ email }); // {email: req.body.email}
+  const testEmail = await User.findOne({ email });
   if (testEmail) {
     return res.status(500).json({ message: "Email already in use" });
   }
