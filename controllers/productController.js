@@ -1,4 +1,5 @@
 const Product = require("../models/Product");
+const cloudinary = require("cloudinary").v2;
 
 const getAllProducts = async (req, res) => {
   const products = await Product.find().populate("userOwner", "name");
@@ -45,6 +46,28 @@ const updateProduct = async (req, res) => {
   }
 };
 
+const uploadImage = async (req, res) => {
+  const { id } = req.params;
+  const productToUpdate = await Product.findById(id);
+  if (productToUpdate.image1) {
+    let array = productToUpdate.image1.split("/");
+    let fileName = array[array.length - 1];
+    const [public_id] = fileName.split(".");
+    await cloudinary.uploader.destroy(public_id);
+  }
+  const { temFilePath } = req.files.image1;
+  const { secure_url } = await cloudinary.uploader.upload(temFilePath);
+  productToUpdate.image1 = secure_url;
+  await productToUpdate.save();
+  try {
+    return res.status(201).json(productToUpdate);
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ message: "There was an error with the image" });
+  }
+};
+
 const deleteProduct = async (req, res) => {
   const { id } = req.params;
   await Product.findByIdAndDelete(id);
@@ -59,6 +82,7 @@ module.exports = {
   getAllProducts,
   getProductById,
   createProduct,
+  uploadImage,
   updateProduct,
   deleteProduct,
 };
